@@ -14,18 +14,19 @@ public class Arbol {
 
     public static void main(String[] args) {
         
-        int opcion = 0, elemento, posicion;
+        int opcion = 0, elemento;
         Node arbol = new Node(100);
         
         do{
             try{
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(null, """
-                     1. Insertar al inicio
-                     2. Insertar al Final
-                     3. Recorrer                                                     
-                     4. Buscar elemento                                                       
-                     5. Borrar un elemento
-                     6. Salir                                                                                                                                            
+                     1. Insertar
+                     2. Buscar
+                     3. Eliminar                                                     
+                     4. Recorrer en orden                                                      
+                     5. Recorrer en pre orden
+                     6. Recorrer en nivel
+                     7. Salir                                                                                                                                                                             
                      Menu de opciones                                                       """, "Menu de Opciones",
                         JOptionPane.INFORMATION_MESSAGE));
                 
@@ -38,46 +39,46 @@ public class Arbol {
                     }
 
                     case 2 -> {
-                        elemento = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresar elemento del nodo",
-                                "Agregar nodo al final", JOptionPane.INFORMATION_MESSAGE));
-                                arbol.containsNode(opcion)
+                        elemento = Integer.parseInt(JOptionPane.showInputDialog(null, "Buscar por valor",
+                                "Buscando por valor", JOptionPane.INFORMATION_MESSAGE));
+                                arbol.containsNode(elemento);
+                                JOptionPane.showMessageDialog(null, "El elemento buscado es: " + arbol.containsNode(elemento), 
+                                "Elemento encontrado", JOptionPane.INFORMATION_MESSAGE);     
                         break;
                     }
 
                     case 3 -> {
-                        if(!listaen.isEmpty()){
-                            listaen.traverse();
-                        }
+                        elemento = Integer.parseInt(JOptionPane.showInputDialog(null, "Borrar elemento",
+                                "Borrando elemento del nodo", JOptionPane.INFORMATION_MESSAGE));
+                                arbol.delete(elemento);
+                                JOptionPane.showMessageDialog(null, "El elemento eliminado es: " + elemento, 
+                                "Elemento encontrado", JOptionPane.INFORMATION_MESSAGE);  
+                                    JOptionPane.showMessageDialog(null, "Elemento borrado exitosamente");
                                 
                         break;
                     }
 
                     case 4 -> {
-                        elemento = Integer.parseInt(JOptionPane.showInputDialog(null, "Buscar por valor",
-                                "Buscando por valor", JOptionPane.INFORMATION_MESSAGE));
-                                listaen.searchByValue(elemento);
-                                JOptionPane.showMessageDialog(null, "El elemento buscado es: " + listaen.searchByValue(elemento), 
-                                "Elemento encontrado", JOptionPane.INFORMATION_MESSAGE);       
+                        
+                        arbol.traverseInOrder(arbol);
+                        
                         break;
                     }
 
                     case 5 -> {
-                        elemento = Integer.parseInt(JOptionPane.showInputDialog(null, "Borrar elemento",
-                                "Borrando elemento del nodo", JOptionPane.INFORMATION_MESSAGE));
-                                listaen.deleteFromPosition(elemento);
-                                JOptionPane.showMessageDialog(null, "El elemento eliminado es: " + elemento, 
-                                "Elemento encontrado", JOptionPane.INFORMATION_MESSAGE);  
-                                    JOptionPane.showMessageDialog(null, "Elemento borrado exitosamente");
-                                break;
+                        
+                        arbol.traversePreOrder(arbol);
+                        
+                        break;
                     }
                     
                     case 6 -> {
-                        JOptionPane.showMessageDialog(null, "Saliendo", "Fin", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        arbol.traverseLevelOrder();
+                        
                         break;
                         
-                       /* default:
-                            JOptionPane.showMessageDialog(null, "Opcion no disponible", "Error", JOptionPane.INFORMATION_MESSAGE);
-                            break;*/
+                      
                             
                     }
         }
@@ -85,9 +86,10 @@ public class Arbol {
             }catch(NumberFormatException n){
                 JOptionPane.showMessageDialog(null, "Error" + n.getMessage());
             }
-        }while(opcion != 6);
+        }while(opcion != 7);
+        
+        
     
     }
         
-    }
 }
